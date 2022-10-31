@@ -1,5 +1,5 @@
 # Infrared Control Panel
-This is an administration panel that can be operated from the web using Infrared REST API. This eliminates the need to manipulate files one by one.
+This is an administration panel that can be operated from the web using [Infrared](https://github.com/haveachin/infrared) REST API. This eliminates the need to manipulate files one by one.
 
 ![image](https://user-images.githubusercontent.com/61586841/199010105-e9c70335-84b9-45e5-95a1-bde58dd2b144.png)
 ![image](https://user-images.githubusercontent.com/61586841/199011229-9d873649-914b-4728-8fab-b6722329fbe4.png)
