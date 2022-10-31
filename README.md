@@ -17,3 +17,6 @@ ADMIN_NAME=admin
 ADMIN_PASSWORD=admin1234
 INFRARED_API_URL=http://localhost:5000
 ```
+
+## Verified working version
+- [v1.3.7-release(lhridder)](https://github.com/lhridder/infrared/tree/v1.3.7-release)
