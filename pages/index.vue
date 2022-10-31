@@ -23,33 +23,19 @@ export default {
   name: 'IndexPage',
   middleware: 'login',
 
-  data () {
-    return {
-      proxies: []
-    }
-  },
-
-  mounted () {
-    this.getproxies()
+  async asyncData ({ $axios }) {
+    const response = await $axios.$get('/api/proxies')
+    const proxies = response
+    return { proxies }
   },
 
   methods: {
-    async getproxies () {
-      this.proxies.splice(0)
-      const response = await this.$axios.get('/proxies')
-      for (const p in response.data) {
-        const proxyjson = await this.$axios.get('/proxies/' + response.data[p])
-        const proxy = proxyjson.data
-        proxy.name = response.data[p]
-        this.proxies.push(proxy)
-      }
-    },
-
     async remove (name) {
-      const response = await this.$axios.delete('/proxies/' + name)
-      if (response.status === 200) {
+      const response = await this.$axios.$get('/api/remove/' + name)
+      if (response.status === '200') {
         this.$toast.success('Deleted successfully!')
-        this.getproxies()
+        const response = await this.$axios.$get('/api/proxies')
+        this.proxies = response
       } else {
         this.$toast.error('Could not successfully delete.')
       }

@@ -2,7 +2,10 @@
   <div>
     <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
       <div class="card flex-shrink-0 w-full shadow-2xl bg-base-100">
-        <div class="card-body">
+        <div class="h-full flex justify-center items-center" v-if="loading === true">
+          <div class="animate-spin h-10 w-10 border-4 border-red-500 rounded-full border-t-transparent"></div>
+        </div>
+        <div class="card-body" v-if="loading === false">
           <div class="form-control">
             <label class="label">
               <span class="label-text">ProxyTo</span>
@@ -54,7 +57,8 @@ export default {
       domain: null,
       domainNames: [],
       proxyTo: null,
-      name: null
+      name: null,
+      loading: false
     }
   },
 
@@ -83,11 +87,14 @@ export default {
         this.$toast.error('ProxyTo is empty!')
         return
       }
-      this.name.trim()
-      const response = await this.$axios.post('/proxies/' + this.name, { domainNames: this.domainNames, proxyTo: this.proxyTo })
-      if (response.status === 200) {
+      this.name = this.name.replace(' ', '')
+      const response = await this.$axios.$get('/api/add', { headers: { name: this.name, domainNames: this.domainNames, proxyTo: this.proxyTo } })
+      this.loading = true
+      if (response.status === '200') {
+        this.loading = false
         this.$toast.success('The proxy has been added succesfully')
       } else {
+        this.loading = false
         this.$toast.error('Could not successfully add.')
       }
     }
